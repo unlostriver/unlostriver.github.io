@@ -1,11 +1,35 @@
 import {useEffect, useRef} from "react"
-import {WebGLRenderer, PerspectiveCamera, SphereGeometry, MeshBasicMaterial, Mesh, Scene, MeshNormalMaterial, Vector3} from "three"
+import {
+    WebGLRenderer,
+    PerspectiveCamera,
+    SphereGeometry,
+    MeshBasicMaterial,
+    Mesh,
+    Scene,
+    DirectionalLight,
+    Box3,
+    Sphere
+} from "three"
+import {GLTFLoader} from "three/addons/loaders/GLTFLoader"
 import * as R from "ramda"
+import lowPolyEarth from "./assets/low-poly-earth/scene.gltf"
 
 let zMin = -500
 let zMax = -50
 let dz = 0.2
 let canvas = null
+
+const nearSize = camera => {
+    const tanFOV = Math.tan(0.5 * Math.PI * camera.fov / 180)
+    const height = 2 * camera.near * tanFOV
+    return [camera.aspect * height, height]
+}
+
+const farSize = camera => {
+    const tanFOV = Math.tan(0.5 * Math.PI * camera.fov / 180)
+    const height = 2 * camera.far * tanFOV
+    return [camera.aspect * height, height]
+}
 
 const addStars = (scene, camera) => {
     const starGeometry = new SphereGeometry(1, 6, 6)
@@ -45,11 +69,54 @@ const addStars = (scene, camera) => {
     return update
 }
 
+const addEarth = (scene, camera) => {
+    const nRadius = 0.5
+    const loader = new GLTFLoader()
+    const light = new DirectionalLight(0xffffff, 3)
+    let earth = null
+    let defaultRadius = null
+
+    const update = dt => {
+        if (!earth) {
+            return
+        }
+        const [width, _] = nearSize(camera)
+        const radius = nRadius * width
+        const scale = radius / defaultRadius
+        earth.scale.set(scale, scale, scale)
+        earth.position.set(0.6 * (width - radius), 0, -(camera.near + radius))
+        earth.rotation.y += 0.0005 * dt
+    }
+
+    light.target.position.set(0, 0, -1)
+    scene.add(light)
+    scene.add(light.target)
+    loader.load(
+        lowPolyEarth,
+        body => {
+            earth = body.scene
+            const box = new Box3().setFromObject(earth)
+            const sphere = new Sphere()
+            box.getBoundingSphere(sphere)
+            defaultRadius = sphere.radius
+            scene.add(earth)
+        },
+        xhr => {
+        },
+        err => {
+            console.error(err)
+        }
+    )
+
+    return update
+}
+
 const startAnimation = () => {
     const renderer = new WebGLRenderer({canvas, antialias: true})
     const scene = new Scene()
     const camera = new PerspectiveCamera(75, 1, -zMax, -zMin)
     const updateStars = addStars(scene, camera)
+    const updateEarth = addEarth(scene, camera)
 
     const resize = () => {
         if (canvas.width == canvas.clientWidth && canvas.height == canvas.clientHeight) {
@@ -61,8 +128,10 @@ const startAnimation = () => {
     }
 
     const render = timePrev => timeNext => {
+        const dt = Math.max(0, timeNext - timePrev)
         resize()
-        updateStars(Math.max(0, timeNext - timePrev))
+        updateStars(dt)
+        updateEarth(dt)
         renderer.render(scene, camera)
         requestAnimationFrame(render(timeNext))
     }
