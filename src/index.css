@@ -2,7 +2,7 @@
 
 * {
     box-sizing: border-box;
-    /*:hover {outline: 1px solid red;}*/
+    /*&:hover {outline: 1px solid red;}*/
 }
 
 :root {
@@ -21,10 +21,50 @@ h1 {
 }
 
 .attention-button {
+    position: relative;
+    z-index: 1;
     font-size: 1.3em;
     padding: 1em;
     background: #eee;
     color: black;
+    transform-style: preserve-3d;
     transform: skew(-10deg);
+    transition: padding 0.3s;
+
+    &::before, &::after {
+        position: absolute;
+        transform: translateZ(-1px);
+        content: "";
+        background: #eee;
+        transition: transform 0.3s;
+    }
+
+    &:hover {
+        background: black;
+        color: #eee;
+        padding: 1em 2em;
+
+        &::before, &::after {
+            inset: 15% 15%;
+        }
+
+        &::before {
+            transform: translate3d(-50%, -40%, -1px)
+        }
+
+        &::after {
+            transform: translate3d(50%, 40%, -1px)
+        }
+    }
+
+    &:active {
+        &::before {
+            transform: translate3d(-65%, -40%, -1px)
+        }
+
+        &::after {
+            transform: translate3d(65%, 40%, -1px)
+        }
+    }
 }
 
