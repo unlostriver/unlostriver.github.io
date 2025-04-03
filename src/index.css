@@ -17,7 +17,11 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+    font-size: 3.2em;
+}
+
+h2 {
+    font-size: 2em;
 }
 
 .attention-button {
@@ -45,26 +49,87 @@ h1 {
         padding: 1em 2em;
 
         &::before, &::after {
-            inset: 15% 15%;
+            inset: 0.5em 0.5em;
         }
 
         &::before {
-            transform: translate3d(-50%, -40%, -1px)
+            transform: translate3d(-2em, -1em, -1px)
         }
 
         &::after {
-            transform: translate3d(50%, 40%, -1px)
+            transform: translate3d(2em, 1em, -1px)
         }
     }
 
     &:active {
         &::before {
-            transform: translate3d(-65%, -40%, -1px)
+            transform: translate3d(-2.8em, -1em, -1px)
         }
 
         &::after {
-            transform: translate3d(65%, 40%, -1px)
+            transform: translate3d(2.8em, 1em, -1px)
         }
     }
+}
+
+.attention-box {
+    position: relative;
+    z-index: 0;
+    background: black;
+    border: 0.4rem double #eee;
+    border-radius: 1rem;
+
+    &::before, &::after {
+        position: absolute;
+        z-index: 1;
+        content: "";
+        background: black;
+        width: 0.4rem;
+        top: 1rem;
+        bottom: 1rem;
+    }
+
+    &::before {
+        left: -0.4rem;
+    }
+
+    &::after {
+        right: -0.4rem;
+    }
+}
+
+#nav-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    > section {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        > dt {
+            font-style: italic;
+            font-weight: bold;
+            padding: 1em;
+        }
+
+        > div {
+            display: flex;
+            flex-direction: column;
+            gap: 2em;
+            padding-left: 3rem;
+        }
+    }
+}
+
+p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.test {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 150px);
 }
 
