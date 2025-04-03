@@ -43,7 +43,7 @@ export const Biography = () => {
             <br />2. Always be prepared to be surprised. Software development is complex and accidents happen. Sometimes even the best test coverage can't foresee freak accidents. Knowing my tools and my limits is crucial for good preparedness.</p>
             <p>If you're still reading, thanks for your attention 🙂. Speaking of attention, I've recently developed an interest in deep learning. Since graduating from UofT, I've returned to studies at GBC to explore applied artificial intelligence. While I'm still pretty new to the field, I've made major progress in my studies in under just a year. I've become proficient with foundational data engineering tools such as NumPy, Scikit-Learn, and various data preprocessing and visualization tools. I'm also an active self-learner, and in the process of familiarizing myself with deep learning models such as YOLO, so that I can work on interesting AI-based projects in the near future. But for now, perhaps you can check out my past projects instead:</p>
             <LinkButton to="/">Projects</LinkButton>
-            <p>Or, if you'd like to get in touch about project collaboration, work opportunities, or just want to get to kno me more, please feel free to contact me by email:</p>
+            <p>Or, if you'd like to get in touch about project collaboration, work opportunities, or just want to get to know me more, please feel free to contact me by email:</p>
             <LinkButton to={"mailto:" + email}><span>{email}</span></LinkButton>
         </SimpleDetails>
     )
@@ -120,11 +120,11 @@ export const Skills = () => {
 }
 
 export const Education = () => {
-    const line1 = useString("33GFqIx3nLGq2/cF.tHhw4M+p82HVlxaD2H3mKUmT5pSA3cbJI583hkHq97u7r460NXFUaAODOBj4/n1UprEArCWuE4l95zajWG5ydA==")
-    const line2 = useString("6OfZTpfhnLyCW0H2.ZZdlLI+72jUVFxdVP2UzKKaQl7sGEuIvFuFswDd46aEVsNcxKOI78nqCQo6Td/Dyy8npal24XZouC5YEhSmRR1E=")
+    const line1 = useString("mXB4SnVATBzoyRQP.0pgEfFXuDgusWiWjA27qGh02RVKHGYSBz4QQFhjNpkmHIGBowmMtu9XBkHnWXLbYNjz1qXmnkX0YwHn4gBdyCWpiu1/mWf5Dvaw=")
+    const line2 = useString("rNNOEGDFbC4mFVoe.p8DPD0ahFanFaI7seVWXq+5EIj2FNl5UWNsk1lPaETrcdZLMXrUnwd8MmeOed1Pb7Lj4qI6r9X/oa6sYDCb9izpg4iPClZbvTnogQuhkDwOV597xaQXL")
 
     return (
-        <SimpleDetails title="Technical Skills">
+        <SimpleDetails title="Education">
             <p>{line1}</p>
             <p>{line2}</p>
         </SimpleDetails>
