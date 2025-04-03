@@ -7,6 +7,7 @@ import "./index.css"
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
+        <title>Portfolio</title>
         <Space />
         <BrowserRouter>
             <Routes>

@@ -12,7 +12,6 @@ import {
 } from "three"
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader"
 import * as R from "ramda"
-import lowPolyEarth from "./assets/low-poly-earth/scene.gltf"
 
 let zMin = -500
 let zMax = -50
@@ -92,7 +91,7 @@ const addEarth = (scene, camera) => {
     scene.add(light)
     scene.add(light.target)
     loader.load(
-        lowPolyEarth,
+        "/assets/low-poly-earth/scene.gltf",
         body => {
             earth = body.scene
             const box = new Box3().setFromObject(earth)
